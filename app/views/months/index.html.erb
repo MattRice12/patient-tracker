@@ -11,9 +11,33 @@
           </tr>
           <% month.days.each do |day| %>
             <tr>
-              <td><%= day_name(day) %></td>
-              <td><%= day.insured %></td>
-              <td><%= day.uninsured %></td>
+
+              <td>
+                <span><%= link_to "L", day_path(day), method: :put %></span>
+                <%= day_name(day) %>
+              </td>
+
+              <% if day.locked == true %>
+                <td><%=insured(day).count%></td>
+                <td><%=uninsured(day).count%></td>
+              <% else %>
+                <td>
+                  <span>
+                    <% if insured(day).present? %>
+                      <%= link_to "-", patient_path(insured(day).first), method: :delete%></span>
+                    <% end %>
+                  <%= insured(day).count %>
+                  <span><%= link_to "+", patients_path(day_id: day.id, insured: true), method: :post%></span>
+                </td>
+
+                <td>
+                  <% if uninsured(day).present? %>
+                    <%= link_to "-", patient_path(day.patients.where(insured: false).first), method: :delete%></span>
+                  <% end %>
+                    <%= uninsured(day).count %>
+                  <span><%= link_to "+", patients_path(day_id: day.id, insured: false), method: :post%></span>
+                </td>
+              <% end %>
             </tr>
           <% end %>
         </table>
