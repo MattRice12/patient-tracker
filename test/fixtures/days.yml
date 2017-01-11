@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  month: one
+  date: 2017-01-10
+  insured: 1
+  uninsured: 1
+
+two:
+  month: two
+  date: 2017-01-10
+  insured: 1
+  uninsured: 1
