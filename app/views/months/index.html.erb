@@ -1,47 +1,57 @@
 <div>
   <div class="content">
     <% months.each do |month| %>
-      <div class="month-table">
-        <h1><%= month.name %></h1>
-        <table>
-          <tr>
-            <th>Date</th>
-            <th>Insured</th>
-            <th>Uninsured</th>
-          </tr>
-          <% month.days.each do |day| %>
+      <% cache month do %>
+        <div class="month-table">
+          <h1><%= month.name %></h1>
+          <table>
             <tr>
-
-              <td>
-                <span><%= link_to "L", day_path(day), method: :put %></span>
-                <%= day_name(day) %>
-              </td>
-
-              <% if day.locked == true %>
-                <td><%=insured(day).count%></td>
-                <td><%=uninsured(day).count%></td>
-              <% else %>
-                <td>
-                  <span>
-                    <% if insured(day).present? %>
-                      <%= link_to "-", patient_path(insured(day).first), method: :delete%></span>
-                    <% end %>
-                  <%= insured(day).count %>
-                  <span><%= link_to "+", patients_path(day_id: day.id, insured: true), method: :post%></span>
-                </td>
-
-                <td>
-                  <% if uninsured(day).present? %>
-                    <%= link_to "-", patient_path(day.patients.where(insured: false).first), method: :delete%></span>
-                  <% end %>
-                    <%= uninsured(day).count %>
-                  <span><%= link_to "+", patients_path(day_id: day.id, insured: false), method: :post%></span>
-                </td>
-              <% end %>
+              <th>Date</th>
+              <th>Insured</th>
+              <th>Uninsured</th>
             </tr>
-          <% end %>
-        </table>
-      </div>
+            <% month.days.each do |day| %>
+              <% cache day do %>
+                <tr>
+                  <td>
+                    <span><%= link_to "L", day_path(day), method: :put %></span>
+                    <%= day_name(day) %>
+                  </td>
+
+                  <% if day.locked %>
+                    <td><%= insured_count(day) %></td>
+                    <td><%= uninsured_count(day) %></td>
+                  <% else %>
+                    <td>
+                      <span>
+                        <% if day.insureds.present? %>
+                          <%= link_to "-", insured_path(day.insureds.first), method: :delete%>
+                        <% end %>
+                      </span>
+
+                      <span><%= insured_count(day) %></span>
+
+                      <span><%= link_to "+", insureds_path(day_id: day.id), method: :post%></span>
+                    </td>
+
+                    <td>
+                      <span>
+                        <% if day.uninsureds.present? %>
+                          <%= link_to "-", uninsured_path(day.uninsureds.first), method: :delete%>
+                        <% end %>
+                      </span>
+
+                      <span><%= uninsured_count(day) %></span>
+
+                      <span><%= link_to "+", uninsureds_path(day_id: day.id), method: :post%></span>
+                    </td>
+                  <% end %>
+                </tr>
+              <% end %>
+            <% end %>
+          </table>
+        </div>
+      <% end %>
     <% end %>
   </div>
 </div>

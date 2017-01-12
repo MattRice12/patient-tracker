@@ -42,3 +42,7 @@ Date.new(2017, 1, 1).upto(Date.new(2017, 12, 31)).each do |date|
     Day.create!(user_id: user, month: Month.find(12), date: date)
   end
 end
+
+1000.times do
+  Insured.create!(day_id: rand(1..365))
+end
