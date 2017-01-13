@@ -14,9 +14,16 @@
  *= require_self
  */
 
+body {
+  margin: 0;
+}
+
 .content {
   display: flex;
   flex-wrap: wrap;
+  width: 90%;
+  text-align: center;
+  margin: 0 5%;
   .month-table {
     margin: 5px;
     padding: 10px;
@@ -29,6 +36,34 @@
       padding: 0 10px;
       text-align: center;
       width: 50px;
+    }
+  }
+}
+
+nav {
+  background: #3998D7;
+  display: flex;
+  .container {
+    width: 100%;
+    text-align: center;
+    .left {
+      width: 40%;
+      text-align: left;
+    }
+    .right {
+      width: 40%;
+      text-align: right;
+    }
+    h1, h2, a {color: white;}
+    div, h2 {
+      display: inline-block;
+      margin: 10px;
+      a {
+        text-decoration: none;
+        &:hover {
+          text-decoration: underline;
+        }
+      }
     }
   }
 }

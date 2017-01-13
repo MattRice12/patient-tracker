@@ -5,11 +5,12 @@ class InsuredsController < ApplicationController
   end
 
   def destroy
-    insured = Insured.find(params[:id])
-    if insured.destroy
+    begin
+      insured = Insured.find(params[:id])
+      insured.destroy
       redirect_to :back
-    else
-      flash[:alert] = "Failed to Delete Patient"
+    rescue
+      flash[:alert] = "You're clicking too fast to delete."
       redirect_to :back
     end
   end

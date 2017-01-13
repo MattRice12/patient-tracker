@@ -6,7 +6,7 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-user = User.create!(name: "Matt", email: "matt@example.com")
+user = User.create!(name: "Matt", email: "matt@example.com", password: "password")
 
 months = %w(January February March April May June July August September October November December)
 

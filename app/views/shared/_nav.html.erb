@@ -1,0 +1,18 @@
+<nav>
+  <div class="container">
+    <div class="left">
+      <h1>Patient Tracker</h1>
+    </div>
+
+    <div class="right">
+      <% if current_user %>
+        <h2>
+          <%= current_user.name.capitalize %>
+        </h2>
+        <h2>
+          <%= link_to "Sign Out", destroy_user_session_path, method: :delete %>
+        </h2>
+      <% end %>
+    </div>
+  </div>
+</nav>
