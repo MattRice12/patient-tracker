@@ -1,5 +1,4 @@
 class DaysController < ApplicationController
-
   def update
     day = Day.find(params[:id])
     if day.locked == true

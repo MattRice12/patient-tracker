@@ -16,7 +16,6 @@ ActiveRecord::Schema.define(version: 20170113011456) do
   enable_extension "plpgsql"
 
   create_table "days", force: :cascade do |t|
-    t.integer  "user_id"
     t.integer  "month_id"
     t.boolean  "locked",           default: true
     t.date     "date"
@@ -25,7 +24,6 @@ ActiveRecord::Schema.define(version: 20170113011456) do
     t.integer  "insureds_count"
     t.integer  "uninsureds_count"
     t.index ["month_id"], name: "index_days_on_month_id", using: :btree
-    t.index ["user_id"], name: "index_days_on_user_id", using: :btree
   end
 
   create_table "insureds", force: :cascade do |t|
@@ -69,7 +67,6 @@ ActiveRecord::Schema.define(version: 20170113011456) do
   end
 
   add_foreign_key "days", "months"
-  add_foreign_key "days", "users"
   add_foreign_key "insureds", "days"
   add_foreign_key "months", "users"
   add_foreign_key "uninsureds", "days"
