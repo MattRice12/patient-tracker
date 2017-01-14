@@ -3,6 +3,7 @@ class DaySerializer < ActiveModel::Serializer
              :month_id,
              :locked,
              :date,
+             :day_name,
              :insureds_count,
              :uninsureds_count
 

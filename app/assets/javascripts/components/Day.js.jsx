@@ -23,6 +23,7 @@ var Day = React.createClass({
     let uninsuredBlock;
     let insuredOutput;
     let uninsuredOutput;
+    let date = this.props.day.date.substr(8, 10);
 
     if (currentDay.insureds_count) {
       insuredOutput = <span>{currentDay.insureds_count}</span>
@@ -65,8 +66,8 @@ var Day = React.createClass({
     return(
       <tr>
         <td>
-          <div className="lock" onClick={this.handleClick}>{lockImg}</div>
-          <span>{currentDay.day_name}</span>
+          <span className="lock" onClick={this.handleClick}>{lockImg}</span>
+          <span>{date}</span>
         </td>
 
         <td>{insuredBlock}</td>

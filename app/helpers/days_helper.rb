@@ -1,5 +1,9 @@
 module DaysHelper
 
+  def day_name
+    object.date.strftime("%d")
+  end
+
   def insured_count(day)
     if day.insureds_count.blank?
       return 0
