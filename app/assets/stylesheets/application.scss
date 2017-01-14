@@ -25,13 +25,16 @@ a {
   }
 }
 
-.icon {
+.fa {
+  cursor: pointer;
   color: gray;
   &:hover {
     color: black;
     text-decoration: none;
   }
 }
+i {margin: 0 5px;}
+
 
 nav {
   background: #3998D7;
@@ -58,8 +61,8 @@ nav {
 .content {
   display: flex;
   flex-wrap: wrap;
-  width: 90%;
   text-align: center;
+  width: 90%;
   margin: 0 5%;
 }
 
@@ -72,8 +75,7 @@ nav {
   max-width: 250px;
   td, th {
     border-right: 1px dotted gray;
-    padding: 0 10px;
-    text-align: center;
-    width: 50px;
+    padding: 0;
+    width: 70px;
   }
 }
