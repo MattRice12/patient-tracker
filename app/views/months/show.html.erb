@@ -1,0 +1,67 @@
+<div>
+  <div class="month-table">
+    <h1><%= month.name %></h1>
+    <table>
+      <tr>
+        <th>Date</th>
+        <th>Insured</th>
+        <th>Uninsured</th>
+      </tr>
+      <% month.days.each do |day| %>
+        <tr>
+          <td>
+            <%= link_to day_path(day), class: "icon", method: :put do %>
+              <% if day.locked %>
+                <i class="fa fa-lock"></i>
+              <% else %>
+                <i class="fa fa-unlock"></i>
+              <% end %>
+            <% end %>
+            <%= day_name(day) %>
+          </td>
+
+          <% if day.locked %>
+            <td><%= insured_count(day) %></td>
+            <td><%= uninsured_count(day) %></td>
+          <% else %>
+            <td>
+              <span>
+                <% if day.insureds.present? %>
+                  <%= link_to insured_path(day.insureds.first), class: "icon", method: :delete do %>
+                    <i class="fa fa-minus-square-o"></i>
+                  <% end %>
+                <% end %>
+              </span>
+
+              <span><%= insured_count(day) %></span>
+
+              <span>
+                <%= link_to insureds_path(day_id: day.id), class: "icon", method: :post do %>
+                  <i class="fa fa-plus-square-o"></i>
+                <% end %>
+              </span>
+            </td>
+
+            <td>
+              <span>
+                <% if day.uninsureds.present? %>
+                  <%= link_to uninsured_path(day.uninsureds.first), class: "icon", method: :delete do %>
+                    <i class="fa fa-minus-square-o"></i>
+                  <% end %>
+                <% end %>
+              </span>
+
+              <span><%= uninsured_count(day) %></span>
+
+              <span>
+                <%= link_to uninsureds_path(day_id: day.id), class: "icon", method: :post do %>
+                  <i class="fa fa-plus-square-o"></i>
+                <% end %>
+              </span>
+            </td>
+          <% end %>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+</div>

@@ -2,7 +2,7 @@
   <div class="content">
     <% months.each do |month| %>
       <div class="month-table">
-        <h1><%= month.name %></h1>
+        <h1><%= link_to month.name, month_path(month) %></h1>
         <table>
           <tr>
             <th>Date</th>
@@ -12,7 +12,13 @@
           <% month.days.each do |day| %>
             <tr>
               <td>
-                <span><%= link_to "L", day_path(day), method: :put %></span>
+                <%= link_to day_path(day), class: "icon", method: :put do %>
+                  <% if day.locked %>
+                    <i class="fa fa-lock"></i>
+                  <% else %>
+                    <i class="fa fa-unlock"></i>
+                  <% end %>
+                <% end %>
                 <%= day_name(day) %>
               </td>
 
@@ -23,25 +29,37 @@
                 <td>
                   <span>
                     <% if day.insureds.present? %>
-                      <%= link_to "-", insured_path(day.insureds.first), method: :delete%>
+                      <%= link_to insured_path(day.insureds.first), class: "icon", method: :delete do %>
+                        <i class="fa fa-minus-square-o"></i>
+                      <% end %>
                     <% end %>
                   </span>
 
                   <span><%= insured_count(day) %></span>
 
-                  <span><%= link_to "+", insureds_path(day_id: day.id), method: :post%></span>
+                  <span>
+                    <%= link_to insureds_path(day_id: day.id), class: "icon", method: :post do %>
+                      <i class="fa fa-plus-square-o"></i>
+                    <% end %>
+                  </span>
                 </td>
 
                 <td>
                   <span>
                     <% if day.uninsureds.present? %>
-                      <%= link_to "-", uninsured_path(day.uninsureds.first), method: :delete%>
+                      <%= link_to uninsured_path(day.uninsureds.first), class: "icon", method: :delete do %>
+                        <i class="fa fa-minus-square-o"></i>
+                      <% end %>
                     <% end %>
                   </span>
 
                   <span><%= uninsured_count(day) %></span>
 
-                  <span><%= link_to "+", uninsureds_path(day_id: day.id), method: :post%></span>
+                  <span>
+                    <%= link_to uninsureds_path(day_id: day.id), class: "icon", method: :post do %>
+                      <i class="fa fa-plus-square-o"></i>
+                    <% end %>
+                  </span>
                 </td>
               <% end %>
             </tr>
