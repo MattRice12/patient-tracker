@@ -1,6 +1,10 @@
 var Day = React.createClass({
   getInitialState: function() {
-    return {locked: this.props.day.locked}
+    return {locked: this.props.day.locked,
+            insured_count: this.props.day.insureds_count,
+            uninsured_count: this.props.day.uninsureds_count,
+            insured: this.props.day.insureds,
+            uninsured: this.props.day.uninsureds}
   },
 
   handleClick() {
@@ -8,19 +12,18 @@ var Day = React.createClass({
       locked: !this.state.locked
     });
     this.updateDay();
-    console.log(this.props.day)
   },
 
   updateDay: function () {
     $.ajax({
       url: "/days/" + this.props.day.id,
+      method: "PUT",
       dataType: "JSON",
       data: {
         days: {
           locked: this.state.locked
         },
-      },
-      method: "PUT"
+      }
     });
   },
 
@@ -32,18 +35,13 @@ var Day = React.createClass({
 
     if (this.state.locked === true) {
       lockImg = <i className="fa fa-lock"></i>;
-      insuredBlock = <span>{this.props.day.insureds_count || 0}</span>
-      uninsuredBlock = <span>{this.props.day.uninsureds_count || 0}</span>
+      insuredBlock = <span>{this.state.insured_count || 0}</span>
+      uninsuredBlock = <span>{this.state.uninsured_count || 0}</span>
     } else {
       lockImg = <i className="fa fa-unlock"></i>
-      insuredBlock =   <Adjuster day={currentDay}
-                                 count={currentDay.insureds_count}
-                                 obj={currentDay.insureds}
-                                 name="insureds" />;
-      uninsuredBlock = <Adjuster day={currentDay}
-                                 count={currentDay.uninsureds_count}
-                                 obj={currentDay.uninsureds}
-                                 name="uninsureds" />;
+
+      insuredBlock =   <Adjuster parent={this} day={currentDay} count={this.state.insured_count} obj={this.props.day.insured} name="insureds"  />;
+      uninsuredBlock = <Adjuster parent={this} day={currentDay} count={this.state.uninsured_count} obj={this.props.day.uninsured} name="uninsureds"  />;
     };
 
     return(

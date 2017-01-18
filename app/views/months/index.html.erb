@@ -2,7 +2,7 @@
   <% months.each do |month| %>
     <div class="month-table">
       <h1><%= link_to month.name, month_path(month) %></h1>
-      <%= react_component("Month", month: month, days: month.days) %>
+      <%= react_component("Month", days: month.days) %>
     </div>
   <% end %>
 </div>
