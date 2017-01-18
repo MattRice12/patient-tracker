@@ -1,6 +1,6 @@
 class MonthsController < ApplicationController
   def index
-    months = Month.includes(:days).where(user: current_user)
+    months = Month.includes(days: [:insureds, :uninsureds]).where(user: current_user)
     render locals: {months: months}
   end
 

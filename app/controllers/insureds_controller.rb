@@ -1,16 +1,16 @@
 class InsuredsController < ApplicationController
   def create
-    Insured.create!(day_id: params[:day_id])
-    redirect_to :back
+    insured = Insured.new(day_id: params[:day_id])
+    if insured.save
+      render json: {message: "Success"}
+    end
   end
 
   def destroy
-    begin
-      insured = Insured.find(params[:id])
-      insured.destroy
-      redirect_to :back
+    insured = Insured.find(params[:id])
+    begin insured.destroy
+      render json: { message: "Deleted" }
     rescue
-      flash[:alert] = "You're clicking too fast to delete."
       redirect_to :back
     end
   end
