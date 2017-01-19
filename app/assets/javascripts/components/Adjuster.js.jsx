@@ -1,6 +1,13 @@
 var Adjuster = React.createClass({
   getInitialState: function() {
-    return {count: this.props.count, objects: this.props.obj, n: 0 }
+    return {
+      count: this.props.count,
+      objects: []
+    }
+  },
+
+  componentWillMount: function() {
+    this.updateAdjuster();
   },
 
   updateAdjuster: function () {
@@ -10,14 +17,35 @@ var Adjuster = React.createClass({
         dataType: "JSON",
         method: "GET"
     }).done(function(response) {
-      that.setState({
-        objects: response.insureds
-      })
+      that.objectCheck(response);
     });
   },
 
+  objectCheck: function(response) {
+    if (this.props.name === "insureds") {
+      this.setState({
+        objects: response.insureds
+      })
+    } else {
+      this.setState({
+        objects: response.uninsureds
+      })
+    }
+  },
+
+  parentCount: function() {
+    if (this.props.name === "insureds") {
+      this.props.parent.setState({
+        insured_count: this.state.count
+      })
+    } else {
+      this.props.parent.setState({
+        uninsured_count: this.state.count
+      })
+    }
+  },
+
   createPerson: function() {
-    // var that = this;
     $.ajax({
       url: '/' + this.props.name + '/',
       method: 'POST',
@@ -27,44 +55,31 @@ var Adjuster = React.createClass({
       },
       success: function(e) {
         this.setState({
-          count: this.state.count + 1,
-          n: this.state.n + 1
-        }),
-        this.props.parent.setState({
-          insured_count: this.state.count
+          count: this.state.count + 1
         })
+        this.parentCount()
+        this.updateAdjuster()
       }.bind(this)
     })
-    // .done(function(response) {
-    //   that.setState({
-    //     count:   that.state.count + 1,
-    //     objects: that.state.objects.push(response)
-    //   })
-    // });
-    // console.log(this.state.objects)
-    this.updateAdjuster();
   },
 
   deletePerson: function() {
+    var lastObject = this.state.objects[this.state.objects.length-1];
     $.ajax({
       method: "DELETE",
-      url: "/" + this.props.name + "/" + this.state.objects[this.state.n].id,
+      url: "/" + this.props.name + "/" + lastObject.id,
       success: function(e) {
         this.setState({
-          count: this.state.count - 1,
-        }),
-        this.props.parent.setState({
-          insured_count: this.state.count
+          count: this.state.count - 1
         })
+        this.parentCount()
+        this.updateAdjuster()
       }.bind(this)
-    })
-    this.updateAdjuster();
+    });
   },
-
 
   render: function() {
     let minusIcon;
-
     if (this.state.count) {
       minusIcon = <i className="fa fa-minus-square-o" onClick={this.deletePerson}></i>
     } else {

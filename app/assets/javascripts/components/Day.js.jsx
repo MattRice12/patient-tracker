@@ -1,10 +1,12 @@
 var Day = React.createClass({
   getInitialState: function() {
-    return {locked: this.props.day.locked,
-            insured_count: this.props.day.insureds_count,
-            uninsured_count: this.props.day.uninsureds_count,
-            insured: this.props.day.insureds,
-            uninsured: this.props.day.uninsureds}
+    return {
+      locked: this.props.day.locked,
+      insured_count: this.props.day.insureds_count,
+      uninsured_count: this.props.day.uninsureds_count,
+      insured: this.props.day.insureds,
+      uninsured: this.props.day.uninsureds
+    }
   },
 
   handleClick() {
@@ -40,8 +42,8 @@ var Day = React.createClass({
     } else {
       lockImg = <i className="fa fa-unlock"></i>
 
-      insuredBlock =   <Adjuster parent={this} day={currentDay} count={this.state.insured_count} obj={this.props.day.insured} name="insureds"  />;
-      uninsuredBlock = <Adjuster parent={this} day={currentDay} count={this.state.uninsured_count} obj={this.props.day.uninsured} name="uninsureds"  />;
+      insuredBlock =   <Adjuster parent={this} day={currentDay} count={this.state.insured_count}  name="insureds"  />;
+      uninsuredBlock = <Adjuster parent={this} day={currentDay} count={this.state.uninsured_count}  name="uninsureds"  />;
     };
 
     return(

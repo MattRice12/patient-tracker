@@ -1,16 +1,21 @@
 class UninsuredsController < ApplicationController
+  def index
+    @uninsured = Uninsured.find_by(day_id: params.fetch(:id))
+    render json: @uninsured
+  end
+
   def create
-    Uninsured.create!(day_id: params[:day_id])
-    redirect_to :back
+    @uninsured = Uninsured.new(day_id: params[:day_id])
+    if @uninsured.save
+      render json: @uninsured
+    end
   end
 
   def destroy
-    begin
-      uninsured = Uninsured.find(params[:id])
-      uninsured.destroy
-      redirect_to :back
-    rescue
-      flash[:alert] = "You're clicking too fast to delete."
+    uninsured = Uninsured.find(params[:id])
+    if uninsured.destroy
+      render json: { message: "Deleted" }
+    else
       redirect_to :back
     end
   end

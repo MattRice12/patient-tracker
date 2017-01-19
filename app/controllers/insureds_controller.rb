@@ -12,10 +12,10 @@ class InsuredsController < ApplicationController
   end
 
   def destroy
-    insured = Insured.find(params.fetch(:id))
-    begin insured.destroy
+    insured = Insured.find(params[:id])
+    if insured.destroy
       render json: { message: "Deleted" }
-    rescue
+    else
       redirect_to :back
     end
   end
