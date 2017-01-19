@@ -30,6 +30,8 @@ gem 'jbuilder', '~> 2.5'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+ruby '2.3.1'
+
 gem 'pry-rails'
 gem 'devise'
 gem 'react-rails'
