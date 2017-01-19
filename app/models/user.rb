@@ -21,4 +21,8 @@ class User < ApplicationRecord
     end
 
   end
+
+  def current_month
+    months[Date.today.strftime("%m").to_i - 1]
+  end
 end

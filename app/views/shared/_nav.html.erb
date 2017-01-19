@@ -1,16 +1,15 @@
 <nav>
-  <div class="container">
+  <div class="nav-content">
     <div class="left">
-      <h1><a href="/">Patient Tracker</a></h1>
+      <h1>Patient Tracker - <%= current_user.name.capitalize %></h1>
     </div>
 
     <div class="right">
       <% if current_user %>
         <h2>
-          <%= current_user.name.capitalize %>
-        </h2>
-        <h2>
-          <%= link_to "Sign Out", destroy_user_session_path, method: :delete %>
+          <span><%= link_to current_user.current_month.name, month_path(current_user.current_month) %></span>
+          <span><%= link_to "Year", months_path %></span>
+          <span><%= link_to "Sign Out", destroy_user_session_path, method: :delete %></span>
         </h2>
       <% end %>
     </div>

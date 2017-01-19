@@ -5,5 +5,5 @@ Rails.application.routes.draw do
   resources :days
   resources :months
 
-  root 'months#index', as: 'root'
+  root 'landing#month', as: 'root'
 end

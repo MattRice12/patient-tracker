@@ -35,12 +35,11 @@ a {
 }
 i {margin: 0 5px;}
 
-
 nav {
   background: #3998D7;
-  display: flex;
-  .container {
-    width: 100%;
+  width: 100%;
+  .nav-content {
+    width: auto;
     text-align: center;
     .left {
       width: 40%;
@@ -50,24 +49,32 @@ nav {
       width: 40%;
       text-align: right;
     }
-    h1, h2, a {color: white;}
+    h1, h2, a {
+      color: white;
+      width: 100%;
+    }
     div, h2 {
       display: inline-block;
-      margin: 10px;
+      span {
+        margin: 0 2%;
+      }
     }
   }
+}
+
+.container {
+  width: 90%;
+  margin: 0 5%;
 }
 
 .content {
   display: flex;
   flex-wrap: wrap;
   text-align: center;
-  width: 90%;
-  margin: 0 5%;
 }
 
-.month-table {
-  margin: 5px;
+.month-table, .month-table-show {
+  margin: 10px 0;
   padding: 10px;
   border: 2px solid black;
   flex: 1 1 0;
@@ -79,3 +86,5 @@ nav {
     width: 70px;
   }
 }
+
+.month-table { margin: 28px 10px 5px 0}

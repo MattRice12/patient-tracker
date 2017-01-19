@@ -13,15 +13,6 @@ class DaySerializer < ActiveModel::Serializer
   has_many :insureds
   has_many :uninsureds
 
-  def insured_ids
-    object.insureds.map {|ins| ins.id}
-  end
-
-  def uninsured_ids
-    object.uninsureds.map {|ins| ins.id}
-  end
-
-
   def day_name
     object.date.strftime("%d")
   end
