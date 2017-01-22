@@ -10,27 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170113011456) do
+ActiveRecord::Schema.define(version: 20170122162141) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "days", force: :cascade do |t|
     t.integer  "month_id"
-    t.boolean  "locked",           default: true
+    t.boolean  "locked",     default: true
     t.date     "date"
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
-    t.integer  "insureds_count"
-    t.integer  "uninsureds_count"
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.integer  "insureds"
+    t.integer  "uninsureds"
     t.index ["month_id"], name: "index_days_on_month_id", using: :btree
-  end
-
-  create_table "insureds", force: :cascade do |t|
-    t.integer  "day_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["day_id"], name: "index_insureds_on_day_id", using: :btree
   end
 
   create_table "months", force: :cascade do |t|
@@ -39,13 +32,6 @@ ActiveRecord::Schema.define(version: 20170113011456) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_months_on_user_id", using: :btree
-  end
-
-  create_table "uninsureds", force: :cascade do |t|
-    t.integer  "day_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["day_id"], name: "index_uninsureds_on_day_id", using: :btree
   end
 
   create_table "users", force: :cascade do |t|
@@ -67,7 +53,5 @@ ActiveRecord::Schema.define(version: 20170113011456) do
   end
 
   add_foreign_key "days", "months"
-  add_foreign_key "insureds", "days"
   add_foreign_key "months", "users"
-  add_foreign_key "uninsureds", "days"
 end

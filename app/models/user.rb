@@ -16,7 +16,7 @@ class User < ApplicationRecord
       month_date = Date.new(2017, i+1)
 
       month_date.beginning_of_month.upto(month_date.end_of_month).each do |date|
-        Day.create!(month_id: this_month.id, date: date)
+        Day.create!(month_id: this_month.id, date: date, insureds: 0, uninsureds: 0)
       end
     end
 

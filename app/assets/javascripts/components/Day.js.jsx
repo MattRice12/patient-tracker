@@ -2,10 +2,8 @@ var Day = React.createClass({
   getInitialState: function() {
     return {
       locked: this.props.day.locked,
-      insured_count: this.props.day.insureds_count,
-      uninsured_count: this.props.day.uninsureds_count,
-      insured: this.props.day.insureds,
-      uninsured: this.props.day.uninsureds
+      insured_count: this.props.day.insureds,
+      uninsured_count: this.props.day.uninsureds
     }
   },
 
@@ -20,11 +18,10 @@ var Day = React.createClass({
     $.ajax({
       url: "/days/" + this.props.day.id,
       method: "PUT",
-      dataType: "JSON",
       data: {
         days: {
-          locked: this.state.locked
-        },
+          locked: !this.state.locked
+        }
       }
     });
   },
@@ -42,8 +39,8 @@ var Day = React.createClass({
     } else {
       lockImg = <i className="fa fa-unlock" onClick={this.handleClick}></i>
 
-      insuredBlock =   <Adjuster parent={this} day={currentDay} count={this.state.insured_count}  name="insureds"  />;
-      uninsuredBlock = <Adjuster parent={this} day={currentDay} count={this.state.uninsured_count}  name="uninsureds"  />;
+      insuredBlock =   <InsuredAdjuster parent={this} day={currentDay} count={this.state.insured_count}    />;
+      uninsuredBlock = <UninsuredAdjuster parent={this} day={currentDay} count={this.state.uninsured_count}  />;
     };
 
     return(

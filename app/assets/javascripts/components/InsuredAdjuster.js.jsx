@@ -1,60 +1,62 @@
 var InsuredAdjuster = React.createClass({
   getInitialState: function() {
-    return {count: this.props.count, n: 0 }
-  },
-
-  componentWillReceiveProps() {
-    return {obje}
-  },
-
-  componentWillUpdate(nextProps, nextState) {
-    if (nextState.open == true && this.state.open == false) {
-      this.props.onWillOpen();
+    return {
+      count: this.props.count
     }
   },
 
-  createPerson: function() {
-    $.ajax({
-      url: '/insureds/',
-      method: 'POST',
-      dataType: 'JSON',
-      data: {
-        day_id: this.props.day.id
-      }
-    });
+  updateCount: function(n) {
     this.setState({
-      count: (this.state.count + 1),
-      n: this.state.n + 1
+      count: this.state.count + n
+    })
+    this.props.parent.setState({
+      insured_count: this.state.count
     })
   },
 
-  deletePerson: function() {
+  addPerson: function() {
     $.ajax({
-      method: "DELETE",
-      url: "/insureds/" + this.props.day.insureds.id,
+      url: "/days/" + this.props.day.id,
+      method: "PUT",
+      data: {
+        days: {
+          insureds: this.state.count + 1
+        }
+      },
       success: function(e) {
-        this.setState({
-          count: this.state.count - 1,
-          n: this.state.n + 1
-        })
-      }.bind(this),
+        this.updateCount(1)
+      }.bind(this)
     })
+  },
+
+  subtractPerson: function() {
+    $.ajax({
+      url: "/days/" + this.props.day.id,
+      method: "PUT",
+      data: {
+        days: {
+          insureds: this.state.count - 1
+        }
+      },
+      success: function(e) {
+        this.updateCount(-1)
+      }.bind(this)
+    });
   },
 
   render: function() {
     let minusIcon;
-
     if (this.state.count) {
-      minusIcon = <i className="fa fa-minus-square-o"></i>
+      minusIcon = <i className="fa fa-minus-square-o" onClick={this.subtractPerson}></i>
     } else {
       minusIcon = <i></i>
     }
 
     return(
       <span>
-        <span className="minus" onClick={this.deletePerson}>{minusIcon}</span>
+        <span className="minus">{minusIcon}</span>
         <span>{this.state.count || 0}</span>
-        <span className="plus" onClick={this.createPerson}><i className="fa fa-plus-square-o"></i></span>
+        <span className="plus" ><i className="fa fa-plus-square-o" onClick={this.addPerson}></i></span>
       </span>
     )
   }

@@ -5,13 +5,14 @@ class DaysController < ApplicationController
   end
 
   def update
-    day = Day.find(params.fetch(:id))
-    if day.locked == true
-      day.locked = false
-    else
-      day.locked = true
+    @day = Day.find(params.fetch(:id))
+    if @day.update_attributes!(day_params)
+      render json: @day
     end
-    day.save
-    redirect_to :back
+  end
+
+  private
+  def day_params
+    params.require(:days).permit(:locked, :insureds, :uninsureds)
   end
 end
