@@ -39,7 +39,7 @@ var Day = React.createClass({
     } else {
       lockImg = <i className="fa fa-unlock" onClick={this.handleClick}></i>
 
-      insuredBlock =   <InsuredAdjuster parent={this} day={currentDay} count={this.state.insured_count}    />;
+      insuredBlock =   <InsuredAdjuster   parent={this} day={currentDay} count={this.state.insured_count}    />;
       uninsuredBlock = <UninsuredAdjuster parent={this} day={currentDay} count={this.state.uninsured_count}  />;
     };
 
