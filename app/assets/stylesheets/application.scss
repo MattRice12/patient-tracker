@@ -14,12 +14,20 @@
  *= require_self
  */
 
+
+@import 'variables';
+
 body {
   margin: 0;
+  font-family: 'Roboto', serif;
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Open Sans', serif;
+  }
 }
 
 a {
   text-decoration: none;
+  color: $secondary-color;
   &:hover {
     text-decoration: underline;
   }
@@ -33,10 +41,18 @@ a {
     text-decoration: none;
   }
 }
+
 i {margin: 0 5px;}
 
+.fa-unlock {
+  color: $unlock-color;
+  &:hover {
+    color: #9E6D0B
+  }
+}
+
 nav {
-  background: #3998D7;
+  background: $main-color;
   width: 100%;
   .nav-content {
     width: auto;
@@ -74,6 +90,7 @@ nav {
 }
 
 .month-table, .month-table-show {
+  h1 {color: $secondary-color;}
   margin: 10px 0;
   padding: 10px;
   border: 2px solid black;
