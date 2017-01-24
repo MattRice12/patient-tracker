@@ -6,7 +6,7 @@ class User < ApplicationRecord
 
   after_create :create_calendar
 
-  has_many :months
+  has_many :months, dependent: :destroy
 
   def create_calendar
     months = %w(January February March April May June July August September October November December)
